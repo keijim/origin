@@ -3,17 +3,18 @@
 #include <string.h>
 #include <math.h>
 
-unsigned long long bc[256];
-unsigned long long total;
-long double entropy;
 
 int main(void){
 	//int byte = 0;
 	unsigned char *byte;
+	unsigned long long total = 0;
+	unsigned long long bc[256];
+	long double prob;
+	long double entropy = 0.0;
+	const int bs = 4096;
+
 	int i;
 	int status;
-	long double prob;
-	const int bs = 4096;
 
 	byte = malloc(bs);
 	if( byte == NULL ){
@@ -21,6 +22,7 @@ int main(void){
 		exit( 1 );
 	}
 	memset(byte,0,bs);
+	memset(bc,0,sizeof(bc));
 
 	while(1){
 		status = fread(byte,1,bs,stdin);
